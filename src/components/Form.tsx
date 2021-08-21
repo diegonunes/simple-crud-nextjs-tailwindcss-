@@ -5,6 +5,8 @@ import Button from './Button';
 
 interface FormProps {
   client: Client;
+  onChangeClient?: (client: Client) => void;
+  cancel?: () => void;
 }
 
 export default function Form(props: FormProps) {
@@ -18,10 +20,12 @@ export default function Form(props: FormProps) {
       <Input text='Nome' value={name} onChange={setName} className='mb-5' />
       <Input text='Idade' type='number' value={age} onChange={setAge} />
       <div className='flex justify-end mt-3'>
-        <Button color='blue' className='mr-2'>
+        <Button color='blue' className='mr-2' onClick={() => props.onChangeClient?.(new Client(id, name, +age))}>
           {id ? 'Alterar' : 'Salvar'}
         </Button>
-        <Button color='gray'>Cancelar</Button>
+        <Button color='gray' onClick={props.cancel}>
+          Cancelar
+        </Button>
       </div>
     </div>
   );
